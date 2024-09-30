@@ -36,7 +36,6 @@ public class TennisGame1 implements TennisGame
     public String getScore()
     {
         String score = "";
-        int tempScore = 0;
         if (player1Score == player2Score) {
             return ALL_SCORES.getOrDefault(player1Score, "Deuce");
         }
@@ -48,14 +47,7 @@ public class TennisGame1 implements TennisGame
             else score = "Win for player2";
         }
         else {
-            for (int i = 1; i < 3; i++) {
-                if (i == 1) tempScore = player1Score;
-                else {
-                    score += "-";
-                    tempScore = player2Score;
-                }
-                score += SINGLE_SCORES.get(tempScore);
-            }
+            return "%s-%s".formatted(SINGLE_SCORES.get(player1Score),SINGLE_SCORES.get(player2Score));
         }
         return score;
     }

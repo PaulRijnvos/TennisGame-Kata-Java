@@ -97,7 +97,12 @@ To be fair it was red at first because I returned the lookup immediately instead
 concatenating it with the score.
 This because the loop is used to build a running score with 2 single scores.
 
-
+### Stage5
+**Observation:**
+As mentioned in the previous stage the original getScore() method uses a loop with 2 iterations to build up a string with the following format:
+'&player1Score - &player2Score'. Even with the table lookup we don't need the 8 lines of code to achieve that. We can do it with 1 line:
+![Alt](images/TennisGame1_oneLine_singleScore_table_lookup.png "Title")
+=> We can also disregard the 'tempScore' variable, because it's never used anymore.
 
 
 
