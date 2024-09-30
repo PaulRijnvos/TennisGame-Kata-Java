@@ -1,71 +1,62 @@
+import java.util.*;
+
+
 public class TennisGame1 implements TennisGame
 {
+    private static Map<Integer, String> ALL_SCORES = new HashMap<>();
+    private static Map<Integer, String> SINGLE_SCORES = new HashMap<>();
 
-    public class TennisGame1 implements TennisGame
-    {
+    static {
+        ALL_SCORES.put(0, "Love-All");
+        ALL_SCORES.put(1, "Fifteen-All");
+        ALL_SCORES.put(2, "Thirty-All");
 
-        private int player1Score = 0;
-        private int player2Score = 0;
 
-        public void wonPoint(String playerName)
-        {
-            if (playerName == "player1")
-                player1Score += 1;
-            else
-                player2Score += 1;
-        }
-
-        public String getScore()
-        {
-            String score = "";
-            int tempScore = 0;
-            if (player1Score == player2Score) {
-                switch (player1Score) {
-                    case 0:
-                        score = "Love-All";
-                        break;
-                    case 1:
-                        score = "Fifteen-All";
-                        break;
-                    case 2:
-                        score = "Thirty-All";
-                        break;
-                    default:
-                        score = "Deuce";
-                        break;
-
-                }
-            }
-            else if (player1Score >= 4 || player2Score >= 4) {
-                int minusResult = player1Score - player2Score;
-                if (minusResult == 1) score = "Advantage player1";
-                else if (minusResult == -1) score = "Advantage player2";
-                else if (minusResult >= 2) score = "Win for player1";
-                else score = "Win for player2";
-            }
-            else {
-                for (int i = 1; i < 3; i++) {
-                    if (i == 1) tempScore = player1Score;
-                    else {
-                        score += "-";
-                        tempScore = player2Score;
-                    }
-                    switch (tempScore) {
-                        case 0:
-                            score += "Love";
-                            break;
-                        case 1:
-                            score += "Fifteen";
-                            break;
-                        case 2:
-                            score += "Thirty";
-                            break;
-                        case 3:
-                            score += "Forty";
-                            break;
-                    }
-                }
-            }
-            return score;
-        }
     }
+
+    static {
+        SINGLE_SCORES.put(0, "Love");
+        SINGLE_SCORES.put(1, "Fifteen");
+        SINGLE_SCORES.put(2, "Thirty");
+        SINGLE_SCORES.put(3, "Forty");
+
+    }
+
+    private int player1Score = 0;
+    private int player2Score = 0;
+
+    public void wonPoint(String playerName)
+    {
+        if (playerName == "player1")
+            player1Score += 1;
+        else
+            player2Score += 1;
+    }
+
+    public String getScore()
+    {
+        String score = "";
+        int tempScore = 0;
+        if (player1Score == player2Score) {
+            return ALL_SCORES.getOrDefault(player1Score, "Deuce");
+        }
+        else if (player1Score >= 4 || player2Score >= 4) {
+            int minusResult = player1Score - player2Score;
+            if (minusResult == 1) score = "Advantage player1";
+            else if (minusResult == -1) score = "Advantage player2";
+            else if (minusResult >= 2) score = "Win for player1";
+            else score = "Win for player2";
+        }
+        else {
+            for (int i = 1; i < 3; i++) {
+                if (i == 1) tempScore = player1Score;
+                else {
+                    score += "-";
+                    tempScore = player2Score;
+                }
+                score += SINGLE_SCORES.get(tempScore);
+            }
+        }
+        return score;
+    }
+}

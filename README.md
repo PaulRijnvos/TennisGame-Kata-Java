@@ -35,11 +35,14 @@ Each refactoring of a TennisGame will be done in a separate branch to prevent re
    * TennisTest.checkAllScoresTennisGame1 is rather straid forward. It runs a TennisGame1 for each given scoring-scenario and checks the resulting score with the expected score.
    * TennisGame1 is of more interest...
 
+**Observation:**
 TennisGame1 is given 2 playerNames via its constructor. These are in private variables, mostly for later use. 
 But IntelliJ tells that each playerName is only used in the constructor.
+
 => We can get rid of the playerNames in TennisGame1. We comment them out and run the test and after succesful completion we remove the comments.
 
 ### Stage2
+**Observation:**
 Can we remove the constructor? It accepts 2 playernames but doesn't use them...
 We comment them out: we get 1 error and that is at the instantiation of TennisGame1 in the test for this class.
 => We should be able to remove the playerNames from the instantiation in the test. We do so by commenting them out:
@@ -52,3 +55,58 @@ Verify by running the test.
 Verify by running the test.
 
 => Remove the commented code.
+
+### Stage3
+Examine the code and probable functionality:
+The TennisTest.checkAllScoresTennisGame1 creates for each given scenario a new TennisGame1. As in real life each game starts with a score of 0-0. Given a scenario the test simulates a game by simulating players scoring points up to the score given by the scenario.
+The test concludes with verifying the TennisGame1.score() with the expected score from the scenario.
+
+The test accesses the TennisGame1 via 2 methods:
+1. wonPoint(String playerName) - This alters the respective score of the given player.
+2. getScore() - This is the piece of proza we need to decipher.
+
+**Observation:**
+The player score are registered in the variables 'm_score1' and 'm_score2'.
+=> Rename these to 'player1Score' and 'player2Score' respectively.
+
+### Stage4
+**Observation:**
+
+The getScore() method contains 2 switch statements. Being functional clear when proper used, and in this case they are, switch statements do take a lot of room what makes them bloaty. Both switch statement take a score and return the equivalent score-string. We can achieve the same via a briefer and clearer method by storing these as key/value pairs in a map.
+
+![Alt](images/TennisGame1_getScore_allScore_switch_block.png "Title")
+
+First we declare, initialize and populate the static 'ALL_SCORES' table.
+![Alt](images/TennisGame1_allScore_table.png "Title")
+
+And then we replace the switch-statement with the table-lookup:
+![Alt](images/TennisGame1_allScore_table_lookup.png "Title")
+
+We can repeat this for the other switch statement that gives a single score item given a score of (0, 1, 2 or 3).
+![Alt](images/TennisGame1_getScore_singleScore_switch_block.png "Title")
+
+First we declare, initialize and populate the static 'SINGLE_SCORES' table.
+![Alt](images/TennisGame1_singleScore_table.png "Title")
+
+And then we replace the switch-statement with the table-lookup:
+![Alt](images/TennisGame1_singleScore_table_lookup.png "Title")
+
+Verify by running test, green.
+
+To be fair it was red at first because I returned the lookup immediately insteadof
+concatenating it with the score.
+This because the loop is used to build a running score with 2 single scores.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
