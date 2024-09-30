@@ -39,3 +39,16 @@ TennisGame1 is given 2 playerNames via its constructor. These are in private var
 But IntelliJ tells that each playerName is only used in the constructor.
 => We can get rid of the playerNames in TennisGame1. We comment them out and run the test and after succesful completion we remove the comments.
 
+### Stage2
+Can we remove the constructor? It accepts 2 playernames but doesn't use them...
+We comment them out: we get 1 error and that is at the instantiation of TennisGame1 in the test for this class.
+=> We should be able to remove the playerNames from the instantiation in the test. We do so by commenting them out:
+
+![Alt](images/TennisGame1_instantiation_without_playernames.png "Title")
+Verify by running the test.
+
+=> Now we can also get rid of the redundant default constructor in TennisGame1.
+![Alt](images/TennisGame1_redundant_constructor.png "Title")
+Verify by running the test.
+
+=> Remove the commented code.
