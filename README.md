@@ -27,3 +27,15 @@ There is a deliberate error in several of the implementations - the player names
 
 Here I will describe my observations and actions step by step, recorded per commit.
 Each refactoring of a TennisGame will be done in a separate branch to prevent refactorings interfer with eachother.
+
+### Stage1
+1. Clone the repo [TennisGame-Kata-Java](https://github.com/PaulRijnvos/TennisGame-Kata-Java.git) ideally from within your favourite IDE. The repo contains a Maven project. Most IDE's know how to handle these.
+2. Perform a Maven verify. This should run flawless.
+3. Familiarize yourself with the game and test at hand: TennisGame1 & TennisTest.checkAllScoresTennisGame1.
+   * TennisTest.checkAllScoresTennisGame1 is rather straid forward. It runs a TennisGame1 for each given scoring-scenario and checks the resulting score with the expected score.
+   * TennisGame1 is of more interest...
+
+TennisGame1 is given 2 playerNames via its constructor. These are in private variables, mostly for later use. 
+But IntelliJ tells that each playerName is only used in the constructor.
+=> We can get rid of the playerNames in TennisGame1. We comment them out and run the test and after succesful completion we remove the comments.
+
