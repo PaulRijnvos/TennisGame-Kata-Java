@@ -111,12 +111,43 @@ There is no need for the getScore() method to use a score variable. Whenever the
 
 Verify by running test, green.
 
+### Stage7
+**Observation:**
+We can now address the "WinOrAdvantage" block of the getScore() method.
+It is almost only a scoreRestult per condition.
+Therefor we need to get rid of the minusResult variable.
+![Alt](images/TennisGame1_win_or_advantage_block.png "Title")
+
+Here we go:
+![Alt](images/TennisGame1_win_or_advantage_block_only_conditions.png "Title")
+
+### Stage8
+**Observation:**  
+The advantage and win conditions for both players is mixed in 1 block.
+Advantage and win for a player is only applicable if that player has at least 4 points and he has a higher score than the other.
+We can also get rid of curly braces at simple if-statements. I know it is a matter of taste and not everybody likes this. But especially in this case it is helpfull.
+![Alt](images/TennisGame1_win_or_advantage_block_only_ifs.png "Title")
+And now we can make it 1 set of if statements.
+![Alt](images/TennisGame1_one_set_of_scoring_conditions.png "Title")
 
 
 
+### Stage9
+Most programmers would be happy with this version of the code. It looks pretty clean and is good maintainable. 
+But for me it still has a step to take from the given scoring rules to this code.
+These are the scoring rules given by the kata:
+![Alt](images/TennisGame1_kata_scoring_rules.png "Title")
 
+Rule1 specifies only 1 rule to determine the winner.
+We still need 2 if-statements for that and the wording of the rule needs "translation" to "coding".
+Wouldn't it be clearer if we introduce a "WinRule" that we can ask if it is applicable and if so apply that rule?
+This is the TennisGame_WinRule:
+![Alt](images/TennisGame_WinRule.png "Title")
+Officially we need testers for this new class. Except we have a fully covering test that shouldn't fail. So as long as this test doesn't run into problems I dare to postpone these tests.
+... and it is still green..
 
-
+And this is the application:
+![Alt](images/TennisGame_WinRule_application.png "Title")
 
 
 
