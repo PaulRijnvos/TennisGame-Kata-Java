@@ -35,20 +35,19 @@ public class TennisGame1 implements TennisGame
 
     public String getScore()
     {
-        String score = "";
         if (player1Score == player2Score) {
             return ALL_SCORES.getOrDefault(player1Score, "Deuce");
         }
         else if (player1Score >= 4 || player2Score >= 4) {
             int minusResult = player1Score - player2Score;
-            if (minusResult == 1) score = "Advantage player1";
-            else if (minusResult == -1) score = "Advantage player2";
-            else if (minusResult >= 2) score = "Win for player1";
-            else score = "Win for player2";
+            if (minusResult == 1) return "Advantage player1";
+            else if (minusResult == -1) return "Advantage player2";
+            else if (minusResult >= 2) return "Win for player1";
+            else return "Win for player2";
         }
         else {
             return "%s-%s".formatted(SINGLE_SCORES.get(player1Score),SINGLE_SCORES.get(player2Score));
         }
-        return score;
+
     }
 }

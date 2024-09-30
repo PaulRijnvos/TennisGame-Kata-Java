@@ -104,6 +104,13 @@ As mentioned in the previous stage the original getScore() method uses a loop wi
 ![Alt](images/TennisGame1_oneLine_singleScore_table_lookup.png "Title")
 => We can also disregard the 'tempScore' variable, because it's never used anymore.
 
+### Stage6
+**Observation:**
+There is no need for the getScore() method to use a score variable. Whenever the method encounters a conclusive situation it can immediately return the appropriate scoreString.
+=> Remove the score variable and replace assignments to it with a return statement.
+
+Verify by running test, green.
+
 
 
 
