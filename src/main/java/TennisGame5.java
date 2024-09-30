@@ -1,20 +1,23 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-public class TennisGame5 implements TennisGame {
+public class TennisGame5 implements TennisGame
+{
 
     private final String player1Name;
     private final String player2Name;
-    private int player1Score;
-    private int player2Score;
+    private       int    player1Score;
+    private       int    player2Score;
 
-    public TennisGame5(String player1Name, String player2Name) {
+    public TennisGame5(String player1Name,
+                       String player2Name)
+    {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
     }
 
     @Override
-    public void wonPoint(String playerName) {
+    public void wonPoint(String playerName)
+    {
         if (playerName.equals("player1"))
             player1Score++;
         else if (playerName.equals("player2"))
@@ -24,7 +27,8 @@ public class TennisGame5 implements TennisGame {
     }
 
     @Override
-    public String getScore() {
+    public String getScore()
+    {
         int p1 = player1Score;
         int p2 = player2Score;
 
@@ -63,7 +67,8 @@ public class TennisGame5 implements TennisGame {
         var entry = Map.entry(p1, p2);
         if (lookup.containsKey(entry)) {
             return lookup.get(entry);
-        } else {
+        }
+        else {
             throw new IllegalArgumentException("Invalid score.");
         }
     }
