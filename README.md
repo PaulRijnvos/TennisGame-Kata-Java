@@ -156,3 +156,20 @@ The TennisGame_AdvantageRule:
 And this is the application:
 ![Alt](images/TennisGame_AdvantageRule_application.png "Title")
 
+### Stage11
+Now we have rules for the Advange and Win scores, I would prefer to have every scoring possibility transfered to its own rule.
+So let's have a look at a possible RunningScoreRule. 
+To bring that in line with the application of the other rules, we first flip the application of the "Deuce" score and the running scores:
+![Alt](images/TennisGame1_alined_runningScore_with_other_rules.png "Title")
+To make that work we had to guard/limit the running score to scores that are not equal, these are handled as ALL_SCORES, and scores not equal, because 40-40 is handled as "Deuce".
+
+And because we don't have a default action anymore, the compiler complains about a missing return statement.
+That position shouldn't be reach at all, so I inserted a "notification" aka RuntimeException in case we do so. The message is self-explanatory...
+
+The TennisGame_RunningScoreRule:
+![Alt](images/TennisGame_RunningScoreRule.png "Title")
+And this is the application:
+![Alt](images/TennisGame_RunningScoreRule_application.png "Title")
+
+Test... all green...
+
