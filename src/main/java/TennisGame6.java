@@ -1,16 +1,20 @@
-public class TennisGame6 implements TennisGame {
+public class TennisGame6 implements TennisGame
+{
     private final String player1Name;
     private final String player2Name;
-    private int player1Score;
-    private int player2Score;
+    private       int    player1Score;
+    private       int    player2Score;
 
-    public TennisGame6(String player1Name, String player2Name) {
+    public TennisGame6(String player1Name,
+                       String player2Name)
+    {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
     }
 
     @Override
-    public void wonPoint(String playerName) {
+    public void wonPoint(String playerName)
+    {
         if (playerName.equals("player1"))
             player1Score++;
         else
@@ -22,12 +26,10 @@ public class TennisGame6 implements TennisGame {
     {
         String result;
 
-        if (player1Score == player2Score)
-        {
+        if (player1Score == player2Score) {
             // tie score
             String tieScore;
-            switch (player1Score)
-            {
+            switch (player1Score) {
                 case 0:
                     tieScore = "Love-All";
                     break;
@@ -44,38 +46,37 @@ public class TennisGame6 implements TennisGame {
 
             result = tieScore;
         }
-        else if (player1Score >= 4 || player2Score >= 4)
-        {
+        else if (player1Score >= 4 || player2Score >= 4) {
             // end-game score
             String endGameScore;
 
             if (player1Score - player2Score == 1) {
                 endGameScore = "Advantage " + player1Name;
-            } else if (player1Score - player2Score == -1) {
+            }
+            else if (player1Score - player2Score == -1) {
                 endGameScore = "Advantage " + player2Name;
-            } else if (player1Score - player2Score >= 2) {
+            }
+            else if (player1Score - player2Score >= 2) {
                 endGameScore = "Win for " + player1Name;
-            } else {
+            }
+            else {
                 endGameScore = "Win for " + player2Name;
             }
 
             result = endGameScore;
         }
-        else
-        {
+        else {
             // regular score
             String regularScore;
 
-            String score1 =  switch (player1Score)
-            {
+            String score1 = switch (player1Score) {
                 case 0 -> "Love";
                 case 1 -> "Fifteen";
                 case 2 -> "Thirty";
                 default -> "Forty";
             };
 
-            var score2 =  switch (player2Score)
-            {
+            var score2 = switch (player2Score) {
                 case 0 -> "Love";
                 case 1 -> "Fifteen";
                 case 2 -> "Thirty";
