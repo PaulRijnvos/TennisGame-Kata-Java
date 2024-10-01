@@ -16,7 +16,7 @@ As a software developer since 1985 I've seen software that covers quit a range o
 
 The first item can be tackled by implementing a proper set of tests. One that covers all functionality, ideally.
 2 and 3 are mostly a matter of taste or oppinion..
-For me I try do address these by attempting to the given specifications or rules 'echo' when reading the source-code out
+For me I try do address these by attempting to 'echo' the given specifications or rules when reading the source-code out
 loud.
 Most of the time this results in a separation between business specs/rules and coding algorithms.
 
@@ -40,7 +40,6 @@ player2". After you refactor, you may want to fix this problem and add suitable 
 ## The Refactoring...
 
 Here I will describe my observations and actions step by step, recorded per commit.
-Each refactoring of a TennisGame will be done in a separate branch to prevent refactorings interfer with eachother.
 
 ### Stage1
 
