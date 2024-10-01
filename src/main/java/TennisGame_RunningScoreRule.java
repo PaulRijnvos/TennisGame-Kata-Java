@@ -11,24 +11,16 @@ public class TennisGame_RunningScoreRule
         SINGLE_SCORES.put(3, "Forty");
     }
 
-    /**
-     * This rule is applicable if:
-     * - Allways ?!?
-     */
-    public boolean applicableFor(int player1Score,
-                                 int player2Score)
-    {
-//        boolean scoresAreNotHigherThan3 = player1Score <= 3 && player2Score <= 3;
-        return true;
-    }
+    private TennisGame_AdvantageRule advantageRule = new TennisGame_AdvantageRule();
+    private TennisGame_WinRule       winRule       = new TennisGame_WinRule();
 
     public String apply(int player1Score,
                         int player2Score)
     {
         boolean scoresAreEqual = player1Score == player2Score;
+        if (winRule.applicableFor(player1Score, player2Score)) return winRule.apply(player1Score, player2Score);
+        if (advantageRule.applicableFor(player1Score, player2Score)) return advantageRule.apply(player1Score, player2Score);
         if (scoresAreEqual && player1Score >= 3) return "Deuce";
-        return "%s-%s".formatted(
-                SINGLE_SCORES.get(player1Score),
-                scoresAreEqual ? "All" : SINGLE_SCORES.get(player2Score));
+        return "%s-%s".formatted(SINGLE_SCORES.get(player1Score), scoresAreEqual ? "All" : SINGLE_SCORES.get(player2Score));
     }
 }

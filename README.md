@@ -97,9 +97,8 @@ The player score are registered in the variables 'm_score1' and 'm_score2'.
 **Observation:**
 
 The getScore() method contains 2 switch statements. Being functional clear when proper used, and in this case they are,
-switch statements do take a lot of room what makes them bloaty. Both switch statement take a score and return the
-equivalent score-string. We can achieve the same via a briefer and clearer method by storing these as key/value pairs in
-a map.
+switch statements do take a lot of room what makes the code bloaty. Both switch statement accept a score and return the
+equivalent score-string. We can achieve the same via a briefer and clearer method by storing these as key/value pairs in a map.
 
 ![Alt](images/TennisGame1_getScore_allScore_switch_block.png "Title")
 
@@ -147,7 +146,7 @@ Verify by running test, green.
 
 **Observation:**
 We can now address the "WinOrAdvantage" block of the getScore() method.
-It is almost only a scoreRestult per condition.
+It is almost a scoreRestult per condition.
 Therefor we need to get rid of the minusResult variable.
 ![Alt](images/TennisGame1_win_or_advantage_block.png "Title")
 
@@ -169,17 +168,16 @@ And now we can make it 1 set of if statements.
 ### Stage9
 
 Most programmers would be happy with this version of the code. It looks pretty clean and is good maintainable.
-But for me it still has a step to take from the given scoring rules to this code.
+But for me there still is a step to take to get from the given scoring rules to this code.
 These are the scoring rules given by the kata:
 ![Alt](images/TennisGame1_kata_scoring_rules.png "Title")
 
 Rule1 specifies only 1 rule to determine the winner.
 We still need 2 if-statements for that and the wording of the rule needs "translation" to "coding".
-Wouldn't it be clearer if we introduce a "WinRule" that we can ask if it is applicable and if so apply that rule?
+Wouldn't it be clearer if we introduce a "WinRule" that we can ask if it is applicable and if so then apply that rule?
 This is the TennisGame_WinRule:
 ![Alt](images/TennisGame_WinRule.png "Title")
-Officially we need testers for this new class. Except we have a fully covering test that shouldn't fail. So as long as
-this test doesn't run into problems I dare to postpone these tests.
+Officially, we need testers for this new class. However, as long as we still have a fully covering test that is not allowed to fail and does not cause any problems, I dare to postpone these new tests.
 ... and it is still green..
 
 And this is the application:
@@ -201,8 +199,7 @@ So let's have a look at a possible RunningScoreRule.
 To bring that in line with the application of the other rules, we first flip the application of the "Deuce" score and
 the running scores:
 ![Alt](images/TennisGame1_alined_runningScore_with_other_rules.png "Title")
-To make that work we had to guard/limit the running score to scores that are not equal, these are handled as ALL_SCORES,
-and scores not equal, because 40-40 is handled as "Deuce".
+To make that work we had to guard/limit the running score to scores that are not equal and only scores up to 3 (<4), these are handled as ALL_SCORES.
 
 And because we don't have a default action anymore, the compiler complains about a missing return statement.
 That position shouldn't be reach at all, so I inserted a "notification" aka RuntimeException in case we do so. The
@@ -220,12 +217,12 @@ Test... all green...
 We're making progress!! Only 1 rule left, the ALL_SCORES rule.
 But if we look at that carefully, up to the score of 3 it only differs from a normal running score by changing the "
 player2Score" to "All" if the scores are equal!
-So we can handle that as a special case in the RunningScoreRule:
+This we can handle that as a special case in the RunningScoreRule:
 ![Alt](images/TennisGame_RunningScoreRule_All_application.png "Title")
 
 Test... Red !!!
 
-Apparantly we, in case of a failure "I", got something wrong:
+Apparantly we, in case of a failure I, got something wrong:
 The RunningScoreRule shouldn't be applicable to scores of 3 aka "Forty" (btw why is that not "Fourty"??).
 Now the RunningScoreRule turns 3-3 into "Forty-All". Technically that should be ok. All be it that "the tennis world"
 prefer to call that "Deuce".
@@ -237,7 +234,7 @@ Test... Still red...f-ed up the code???
 
 I'll have to resort to debugging and put a break-point at the RuntimeException. 
 This shows that I didn't handle the score of 4-4. 
-Ofcourse... the RunningScore only handles scores up to 3. All higher scores than 3 should be:
+Ofcourse... The RunningScore only handles scores up to 3. All higher scores than 3 should be:
 - Advantage for a player in case of 1 point difference.
 - Win for a player in case of 2, or more.., points difference.
 - Deuce in case of equal points.
@@ -251,3 +248,20 @@ The RunningScoreRule turns out to be the default rule:
 
 Test... pls let it be green again... Green!!!
 Now we can remove the comments and commit...
+
+### Stage13
+There is one thing that start to bug me now:
+The RunningScoreRule has no guard left thus it can be applied to any scores.
+But that's not true. We can onlye apply the RunningScoreRule after we assured the AdvantageRule and the WinRule are not applicable.
+What if we move the application of those rules from the getScore() method to the RunningScoreRule?
+Then the RunningScoreRule is indeed allways applicable to any score. 
+That would turn it into 1 complete TennisGameScoreRule... 
+Lets give that a go.
+
+We move the application of the AdvantageRule and the WinRule to the RunningScoreRule. 
+We need to move their instantiations too.
+And we can get rid of the guard aka the 'applicableFor' method in the RunningScoreRule too.
+![Alt](images/TennisGame_ScoreRule_as_THE_RULE.png "Title")
+
+And this is my final TennisGame1:
+![Alt](images/TennisGame_final_version.png "Title")
