@@ -29,11 +29,7 @@ public class TennisGame1 implements TennisGame
         if (advantageRule.applicableFor(player1Score, player2Score))
             return advantageRule.apply(player1Score, player2Score);
 
-        if (runningScoreRule.applicableFor(player1Score, player2Score))
-            return runningScoreRule.apply(player1Score, player2Score);
-
-        if (player1Score == player2Score) return ALL_SCORES.getOrDefault(player1Score, "Deuce");
-        throw new RuntimeException("You f-ed up the code!");
+           return runningScoreRule.apply(player1Score, player2Score);
     }
 
     public void wonPoint(String playerName)
