@@ -149,7 +149,10 @@ Officially we need testers for this new class. Except we have a fully covering t
 And this is the application:
 ![Alt](images/TennisGame_WinRule_application.png "Title")
 
-
-
-
+### Stage10
+Repeat the previous stage and create a TennisGame_AdvantageRule.
+The TennisGame_AdvantageRule:
+![Alt](images/TennisGame_AdvantageRule.png "Title")
+And this is the application:
+![Alt](images/TennisGame_AdvantageRule_application.png "Title")
 

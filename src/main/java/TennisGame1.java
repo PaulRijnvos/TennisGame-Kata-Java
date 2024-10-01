@@ -23,19 +23,19 @@ public class TennisGame1 implements TennisGame
     }
 
 
-    private int                player1Score = 0;
-    private int                player2Score = 0;
+    private int player1Score = 0;
+    private int player2Score = 0;
 
-    private TennisGame_WinRule winRule      = new TennisGame_WinRule();
+    private TennisGame_AdvantageRule advantageRule = new TennisGame_AdvantageRule();
+    private TennisGame_WinRule       winRule       = new TennisGame_WinRule();
+
     public String getScore()
     {
         if (winRule.applicableFor(player1Score, player2Score)) return winRule.apply(player1Score, player2Score);
+        if (advantageRule.applicableFor(player1Score, player2Score)) return advantageRule.apply(player1Score, player2Score);
 
 
         if (player1Score == player2Score) return ALL_SCORES.getOrDefault(player1Score, "Deuce");
-        if (player1Score >= 4 && player1Score - player2Score == 1) return "Advantage player1";
-        if (player2Score >= 4 && player1Score - player2Score == -1) return "Advantage player2";
-
         return "%s-%s".formatted(SINGLE_SCORES.get(player1Score), SINGLE_SCORES.get(player2Score));
 
     }
